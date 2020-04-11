@@ -1,0 +1,29 @@
+.header {
+    flex-grow: 0;
+    height: 10rem;
+    min-height: 7rem;
+    display: flex;
+
+    &__menu{
+        margin: auto;
+        margin-left: 47px;
+    }
+
+    &__tittle{
+        margin-right: 50px;
+        padding-top: 57px;
+        text-decoration: unset;
+        color: inherit;
+        font-size: .6em;
+    }
+
+    .icon-name{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h1 {
+            margin-left: 5px;
+        }
+    }
+}
