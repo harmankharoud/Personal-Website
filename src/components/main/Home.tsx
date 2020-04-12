@@ -20,11 +20,11 @@ export default class Home extends React.Component {
           <span>neural</span>
           <span>pathways</span>
           <img className="gates xor" src={xor} alt="xor"></img>
-          <img className="gates nand" src={nand} alt="xor"></img>
-          <img className="gates or" src={or} alt="xor"></img>
-          <img className="gates and" src={and} alt="xor"></img>
-          <img className="gates nor" src={nor} alt="xor"></img>
-          <img className="gates not" src={not} alt="xor"></img>
+          <img className="gates nand" src={nand} alt="nand"></img>
+          <img className="gates or" src={or} alt="or"></img>
+          <img className="gates and" src={and} alt="and"></img>
+          <img className="gates nor" src={nor} alt="nor"></img>
+          <img className="gates not" src={not} alt="not"></img>
         </section>
       </div>
     )
