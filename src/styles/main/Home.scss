@@ -1,0 +1,141 @@
+.home {
+
+  .svg-color {
+    fill: #6e6e6e;
+  }
+
+  &__background {
+    position: relative;
+    text-align: center;
+    top: 11%;
+
+    @media only screen and (max-width: 600px) {
+      top: 12%;
+    }
+
+    .cpu {
+      max-width: 387px;
+      border-radius: 5px;
+      
+      @media only screen and (max-width: 600px) {
+        margin-top: 60px;
+      }
+
+    }
+
+    span {
+      font-size: 3.3em;
+      position: absolute;
+
+      &:nth-child(2) {        
+        top: 10px;
+        left: 59px;
+
+        @media only screen and (max-width: 600px) {
+          top: 70px;
+        }
+      }
+
+      &:nth-child(3) {        
+        top: 72px;
+        left: 141px;
+
+        @media only screen and (max-width: 600px) {
+          top: 132px;
+        }
+      }
+
+      &:nth-child(4) {        
+        top: 136px;
+        left: 117px;
+
+        @media only screen and (max-width: 600px) {
+          top: 196px;
+        }
+      }
+
+      &:nth-child(5) {        
+        top: 212px;
+        left: 84px;
+
+        @media only screen and (max-width: 600px) {
+          top: 272px;
+        }
+      }
+    }
+
+    .gates {
+      position: absolute;
+      filter: contrast(7%);
+    }
+
+    .xor {
+      top: -40px;
+      left: -133px;
+      transform: rotate(-10deg);
+
+      @media only screen and (max-width: 600px) {
+        left: 40px;
+        top: -64px;
+      }
+    }
+
+    .nand {
+      top: 19%;
+      left: 49%;
+      transform: rotate(5deg);
+      position: fixed;
+
+      @media only screen and (max-width: 600px) {
+        left: 229px;
+        top: -52px;
+        position: absolute;
+
+      }
+    }
+
+    .or {
+      top: 7px;
+      left: 438px;
+      transform: rotate(150deg);
+
+      @media only screen and (max-width: 600px) {
+        left: 100px;
+      }
+    }
+
+    .and {
+      top: 213px;
+      left: 470px;
+      transform: rotate(15deg);
+
+      @media only screen and (max-width: 600px) {
+        left: 76px;
+        top: 430px;
+      }
+    }
+
+    .nor {
+      top: 147px;
+      left: -170px;
+      transform: rotate(50deg);
+
+      @media only screen and (max-width: 600px) {
+        left: 250px;
+        top: 370px;
+      }
+    }
+
+    .not {
+      top: 347px;
+      left: 60px;
+      transform: rotate(5deg);
+
+      @media only screen and (max-width: 600px) {
+        left: 200px;
+        top: 470px;
+      }
+    }
+
+  }
+}
