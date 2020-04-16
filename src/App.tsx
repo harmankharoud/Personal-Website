@@ -4,9 +4,10 @@ import './App.scss';
 
 import Header from "./components/header/Header";
 import Home from "./components/main/Home";
-import Projects from "./components/projects/Porjects"
+import Projects from "./components/projects/Porjects";
 
 import CenteralProcessingUnit from "./components/projects/centralProcessingUnit/CentralProcessingUnit";
+import WhoAmI from "./components/aboutme/WhoAmI";
 
 import Footer from "./components/footer/Footer";
 
@@ -21,7 +22,8 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Home}></Route>
               <Route exact path="/projects" component={Projects}></Route>
-              <Route exact path="/centralProcessingUnit" component={CenteralProcessingUnit}></Route>
+              <Route exact path="/whoami" component={WhoAmI}></Route>
+              <Route exact path="/projects/centralProcessingUnit" component={CenteralProcessingUnit}></Route>
             </Switch>
           </div>
           <Footer/>
