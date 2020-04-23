@@ -1,5 +1,78 @@
+.clock-pulses {
+  position: relative;
+  height: 42px;
+  width: 50px;
+  left: 0px;
+  background-color: #efefef;  
+}
+
+
 .cpu {
-  &__heading{
+  &__heading {
     text-align: center;
+    h2 {
+      margin-top: 0px;
+    }
+  }
+
+  &__main-content {
+    width: calc(70em);
+    .clock {
+      display: flex;
+      &__pulses {
+        border-top: 2px solid #ff000085;
+        border-bottom: 2px solid #ff000085;
+        height: 40px;
+        display: flex;
+
+        div:nth-child(n) {
+          @extend .clock-pulses;
+          top: -2px;
+          border-right: 2px solid #ff000085;
+        }
+
+        div:nth-child(2n) {
+          @extend .clock-pulses;
+          top: 0px;
+        }
+      }
+
+      &__tics {
+        border-left: 2px solid;
+        top: -8px;
+        position: relative;
+        height: 60px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        z-index: 99;
+        cursor: pointer;
+      }
+
+      &__increment-tics {
+        animation: move 50s;
+      }
+  
+      @keyframes move {
+        from {left: 0px;}
+        to {left: 200px;}
+      }
+    }
+
+    .start {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+
+      span {
+        margin-right: 10px;
+      }
+
+      .play-button {
+        cursor: pointer;
+        
+      }
+    }
   }
 }
