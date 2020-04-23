@@ -37,6 +37,10 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
     }
   }
 
+  private pauseCPU = (): void => {
+    clearInterval(this.interval);
+  }
+
 
 
   private handleDrag = (e: any, ui: any):void => {
@@ -52,14 +56,19 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
     clearInterval(this.interval);
   }
 
-  private regiesterCallBack = (isRestart?: boolean):void => {
-    if(isRestart) {
+  private regiesterCallBack = (isReset?: boolean, isPausing?: boolean):void => {
+    if(isPausing) {
+      this.pauseCPU();
+      return
+    }
+    if(isReset) {
       this.setState({
         clockIncerementTics: {
           x: 0,
           y: 0
         }
-      })
+      });
+      return
     }
     this.runCPU();
   }

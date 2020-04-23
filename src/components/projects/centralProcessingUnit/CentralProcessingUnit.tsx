@@ -1,6 +1,7 @@
 import React from "react";
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded';
 import RotateLeftRoundedIcon from '@material-ui/icons/RotateLeftRounded';
+import PauseCircleOutlineRoundedIcon from '@material-ui/icons/PauseCircleOutlineRounded';
 
 import { 
     ICPUProps, 
@@ -13,19 +14,36 @@ import "../../../styles/projects/CPU.scss";
 
 export default class CentralProcessingUnit extends React.Component<ICPUProps, ICPUState> {
 
-  private interval: any;
-
   constructor (props: ICPUProps) {
     super(props);
     this.state = {
-      currentTime: 0
+      currentTime: 0,
+      runningCPU: false
     }
   }
 
-  private callBack = (isRestart?: boolean):void => {};
+  private callBack = (isReset?: boolean, isPausing?: boolean):void => {};
 
   private runCPU = ():void => {
-    this.callBack(false);
+    this.setState({
+      runningCPU: true
+    });
+    if (!this.state.runningCPU) this.callBack(false)
+  }
+
+  private pauseCPU = ():void => {
+    this.setState({
+      runningCPU: false
+    });
+    this.callBack(false, true)
+  }
+
+  private reSetCPU = () => {
+    this.callBack(true);
+    this.setState({
+      currentTime: 0,
+      runningCPU: false
+    });
   }
 
   private updateCurrentTime = (time: number) => {
@@ -34,11 +52,14 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     });
   }
 
-  private reRunCPU = () => {
-    this.callBack(true);
-    this.setState({
-      currentTime: 0
-    });
+  private renderPlayButton = ():JSX.Element => {
+    if (this.state.currentTime === 1144) {
+      return <RotateLeftRoundedIcon className="play-button" onClick={this.reSetCPU}></RotateLeftRoundedIcon>
+    }
+    if(this.state.runningCPU) {
+      return <PauseCircleOutlineRoundedIcon className="play-button" onClick={this.pauseCPU}></PauseCircleOutlineRoundedIcon>
+    }
+    return <PlayCircleOutlineRoundedIcon className="play-button" onClick={this.runCPU}></PlayCircleOutlineRoundedIcon>
   }
 
   render () {    
@@ -55,11 +76,9 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
             Every CPU has a clock, lets make a clock first.
           </p>          
           <div className="start">
-            <span>{this.state.currentTime === 1144 ? "Re-Start" : "Start"}</span>
+            <span>{this.state.currentTime === 1144 ? "Re-Set" : "Start"}</span>
             {
-            this.state.currentTime === 1144 ?
-              <RotateLeftRoundedIcon className="play-button" onClick={this.reRunCPU}></RotateLeftRoundedIcon> :
-              <PlayCircleOutlineRoundedIcon className="play-button" onClick={this.runCPU}></PlayCircleOutlineRoundedIcon>
+              this.renderPlayButton()            
             }
           </div>
           <Clock runCPU={(callback) => this.callBack = callback} currentTime={this.updateCurrentTime}></Clock>
