@@ -18,12 +18,15 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
     return [...Array(22)].map((i, index) => <div className="seconds" key={index}></div>)
   }
 
-  private tick = ():void => {
-    if (this.state.clockIncerementTics.x >= 1050) clearInterval(this.interval);
+  private tick = (isInc?: boolean):void => {
+    if (this.state.clockIncerementTics.x < 0 || this.state.clockIncerementTics.x > 1140) {
+      clearInterval(this.interval);
+      return
+    }
 
     this.setState({
       clockIncerementTics : {
-        x: this.state.clockIncerementTics.x + 52, 
+        x: isInc ? this.state.clockIncerementTics.x + 52 : this.state.clockIncerementTics.x - 52, 
         y: 0
       }
     });
@@ -33,7 +36,7 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
 
   private runCPU = ():void => {
     if (this.state.clockIncerementTics.x <= 1050) {
-      this.interval = setInterval(() => this.tick(), 100);
+      this.interval = setInterval(() => this.tick(true), 100);
     }
   }
 
@@ -56,10 +59,10 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
     clearInterval(this.interval);
   }
 
-  private regiesterCallBack = (isReset?: boolean, isPausing?: boolean):void => {
+  private regiesterCallBack = (isReset?: boolean, isPausing?: boolean, isSingleStepping?: number):void => {
     if(isPausing) {
       this.pauseCPU();
-      return
+      return;
     }
     if(isReset) {
       this.setState({
@@ -68,13 +71,22 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
           y: 0
         }
       });
-      return
+      return;
+    }
+    if (isSingleStepping) {
+      const isInc = isSingleStepping === 1 ? true : false
+      this.tick(isInc);
+      return;
     }
     this.runCPU();
   }
 
   public componentDidMount = ():void => {
     this.props.runCPU(this.regiesterCallBack);
+  }
+
+  private renderClockTics = ():JSX.Element => {
+    return <div className={`clock__tics`}></div>
   }
 
   render () {
@@ -86,13 +98,13 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
           grid={[52, 52]}
           position={this.state.clockIncerementTics}
           onDrag={this.handleDrag}>
-            <div 
-              className={`clock__tics`}
-              >
-            </div>
+            {this.renderClockTics()}
         </Draggable>
         <div className="clock__pulses">
           {this.renderClock()}
+        </div>
+        <div className="clock__analog">
+          <h3>{this.state.clockIncerementTics.x / 52} seconds</h3>
         </div>
       </div>
     )

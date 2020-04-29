@@ -1,5 +1,5 @@
 export interface IClockProps {
-  runCPU: (callBack: (isReset?: boolean, isPausing?: boolean) => void) => void;
+  runCPU: (callBack: (isReset?: boolean, isPausing?: boolean, isSingleStepping?: number) => void) => void;
   currentTime: (time: number) => void;
 }
 

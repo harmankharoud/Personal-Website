@@ -2,6 +2,8 @@ import React from "react";
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded';
 import RotateLeftRoundedIcon from '@material-ui/icons/RotateLeftRounded';
 import PauseCircleOutlineRoundedIcon from '@material-ui/icons/PauseCircleOutlineRounded';
+import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
+import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 
 import { 
     ICPUProps, 
@@ -22,7 +24,7 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     }
   }
 
-  private callBack = (isReset?: boolean, isPausing?: boolean):void => {};
+  private callBack = (isReset?: boolean, isPausing?: boolean, isSingleStepping?: number):void => {};
 
   private runCPU = ():void => {
     this.setState({
@@ -46,6 +48,14 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     });
   }
 
+  private goBack = (): void => {
+    this.callBack(false, false, 2);
+  }
+
+  private goForward = (): void => {
+    this.callBack(false, false, 1);
+  }
+
   private updateCurrentTime = (time: number) => {
     this.setState({
       currentTime: time
@@ -53,7 +63,7 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
   }
 
   private renderPlayButton = ():JSX.Element => {
-    if (this.state.currentTime === 1144) {
+    if (this.state.currentTime > 1140) {
       return <RotateLeftRoundedIcon className="play-button" onClick={this.reSetCPU}></RotateLeftRoundedIcon>
     }
     if(this.state.runningCPU) {
@@ -76,10 +86,12 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
             Every CPU has a clock, lets make a clock first.
           </p>          
           <div className="start">
-            <span>{this.state.currentTime === 1144 ? "Re-Set" : "Start"}</span>
+            <span>{this.state.currentTime > 1100 ? "Re-Set" : "Start"}</span>
             {
               this.renderPlayButton()            
             }
+            <ArrowBackRoundedIcon className="play-button" onClick={this.goBack}></ArrowBackRoundedIcon>
+            <ArrowForwardRoundedIcon className="play-button" onClick={this.goForward}></ArrowForwardRoundedIcon>
           </div>
           <Clock runCPU={(callback) => this.callBack = callback} currentTime={this.updateCurrentTime}></Clock>
         </section>

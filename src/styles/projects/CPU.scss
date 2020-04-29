@@ -19,6 +19,19 @@
     width: calc(70em);
     .clock {
       display: flex;
+
+      &__tics {
+        border-left: 2px solid;
+        top: -8px;
+        position: relative;
+        height: 60px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        z-index: 99;
+        cursor: grab;
+      }
+
       &__pulses {
         border-top: 2px solid #ff000085;
         border-bottom: 2px solid #ff000085;
@@ -37,25 +50,8 @@
         }
       }
 
-      &__tics {
-        border-left: 2px solid;
-        top: -8px;
-        position: relative;
-        height: 60px;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        z-index: 99;
-        cursor: pointer;
-      }
-
-      &__increment-tics {
-        animation: move 50s;
-      }
-  
-      @keyframes move {
-        from {left: 0px;}
-        to {left: 200px;}
+      &__analog {
+        display: none;
       }
     }
 
@@ -74,5 +70,44 @@
         
       }
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    max-width: 100%;
+    &__main-content {
+      width: 90%;
+      text-align: center;
+      margin-left: 6%;
+
+      .clock {        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        &__tics {
+          display: none;
+        }
+
+        &__pulses {
+          display: none;
+        }
+
+        &__analog {
+          display: inherit;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    max-width: 90%;
+  }
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+  }
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1400px) {
   }
 }
