@@ -19,7 +19,7 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
   }
 
   private tick = (isInc?: boolean):void => {
-    if (this.state.clockIncerementTics.x < 0 || this.state.clockIncerementTics.x > 1140) {
+    if (this.state.clockIncerementTics.x > 1140) {
       clearInterval(this.interval);
       return
     }
@@ -30,7 +30,6 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
         y: 0
       }
     });
-
     this.props.currentTime(this.state.clockIncerementTics.x);
   }
 

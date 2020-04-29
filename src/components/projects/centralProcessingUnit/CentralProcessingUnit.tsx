@@ -1,4 +1,5 @@
 import React from "react";
+
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded';
 import RotateLeftRoundedIcon from '@material-ui/icons/RotateLeftRounded';
 import PauseCircleOutlineRoundedIcon from '@material-ui/icons/PauseCircleOutlineRounded';
@@ -49,7 +50,7 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
   }
 
   private goBack = (): void => {
-    this.callBack(false, false, 2);
+    this.state.currentTime !== 0 ? this.callBack(false, false, 2) : this.callBack(true);
   }
 
   private goForward = (): void => {
@@ -63,7 +64,7 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
   }
 
   private renderPlayButton = ():JSX.Element => {
-    if (this.state.currentTime > 1140) {
+    if (this.state.currentTime > 1091) {
       return <RotateLeftRoundedIcon className="play-button" onClick={this.reSetCPU}></RotateLeftRoundedIcon>
     }
     if(this.state.runningCPU) {
@@ -86,11 +87,8 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
             Every CPU has a clock, lets make a clock first.
           </p>          
           <div className="start">
-            <span>{this.state.currentTime > 1100 ? "Re-Set" : "Start"}</span>
-            {
-              this.renderPlayButton()            
-            }
-            <ArrowBackRoundedIcon className="play-button" onClick={this.goBack}></ArrowBackRoundedIcon>
+            {this.renderPlayButton()}         
+            <ArrowBackRoundedIcon className="play-button" onClick={this.goBack}></ArrowBackRoundedIcon>   
             <ArrowForwardRoundedIcon className="play-button" onClick={this.goForward}></ArrowForwardRoundedIcon>
           </div>
           <Clock runCPU={(callback) => this.callBack = callback} currentTime={this.updateCurrentTime}></Clock>
