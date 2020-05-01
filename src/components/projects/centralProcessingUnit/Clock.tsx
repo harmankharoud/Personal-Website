@@ -80,12 +80,12 @@ export default class Clock extends React.Component<IClockProps, IClockState> {
     this.runCPU();
   }
 
-  public componentDidMount = ():void => {
-    this.props.runCPU(this.regiesterCallBack);
-  }
-
   private renderClockTics = ():JSX.Element => {
     return <div className={`clock__tics`}></div>
+  }
+
+  public componentDidMount = ():void => {
+    this.props.runCPU(this.regiesterCallBack);
   }
 
   render () {

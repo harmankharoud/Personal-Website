@@ -6,12 +6,15 @@ import PauseCircleOutlineRoundedIcon from '@material-ui/icons/PauseCircleOutline
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 
+import TextField from '@material-ui/core/TextField';
+
 import { 
     ICPUProps, 
     ICPUState } 
   from "../../../interface/projects/centralProcessingUnit/ICentralProcessingUnit";
 
 import Clock from "./Clock";
+import SelectCPUInput from "./SelectCPUInput";
 
 import "../../../styles/projects/CPU.scss";
 
@@ -21,7 +24,8 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     super(props);
     this.state = {
       currentTime: 0,
-      runningCPU: false
+      runningCPU: false,
+      selectedInputStyle: "numbers"
     }
   }
 
@@ -63,6 +67,16 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     });
   }
 
+  private cpuOutput = ():number => {
+    return 0;
+  }
+
+  private updateSelectedCPUInput = (inputType: string) => {
+    this.setState({
+      selectedInputStyle: inputType
+    })
+  }
+
   private renderPlayButton = ():JSX.Element => {
     if (this.state.currentTime > 1091) {
       return <RotateLeftRoundedIcon className="play-button" onClick={this.reSetCPU}></RotateLeftRoundedIcon>
@@ -71,6 +85,50 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
       return <PauseCircleOutlineRoundedIcon className="play-button" onClick={this.pauseCPU}></PauseCircleOutlineRoundedIcon>
     }
     return <PlayCircleOutlineRoundedIcon className="play-button" onClick={this.runCPU}></PlayCircleOutlineRoundedIcon>
+  }
+
+  private loadNumbersInputs = ():JSX.Element => {
+    const textProps = {
+      maxLength: 1
+    }
+    return (
+      <div className="numbers">
+        <TextField 
+          variant="outlined"
+          className="num-1" 
+          placeholder="X"
+          color="secondary"
+          defaultValue="9"
+          inputProps={textProps}></TextField>
+        <span>+</span>
+        <TextField 
+          variant="outlined"
+          className="num-2" 
+          placeholder="X" 
+          color="secondary"
+          defaultValue="9"
+          inputProps={textProps}></TextField>
+      </div>
+    )
+  }
+
+  private loadTextInput = ():JSX.Element => {
+    return (
+      <div className="characters">
+        Coming soon...
+        {/* <TextField 
+          className="input" 
+          placeholder="ABC" 
+          inputProps = {{
+            maxLength: 12
+          }}></TextField> */}
+      </div>
+    )
+  }
+
+  private renderInputTypes = ():JSX.Element => {
+    if (this.state.selectedInputStyle === "numbers") return this.loadNumbersInputs()
+    return this.loadTextInput()
   }
 
   render () {    
@@ -91,7 +149,22 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
             <ArrowBackRoundedIcon className="play-button" onClick={this.goBack}></ArrowBackRoundedIcon>   
             <ArrowForwardRoundedIcon className="play-button" onClick={this.goForward}></ArrowForwardRoundedIcon>
           </div>
+
           <Clock runCPU={(callback) => this.callBack = callback} currentTime={this.updateCurrentTime}></Clock>
+
+          <SelectCPUInput selectedInput={this.updateSelectedCPUInput}></SelectCPUInput>
+
+          {
+            this.renderInputTypes()
+          }          
+
+          <div className="output-from-cpu">
+            <span>
+              {
+                this.cpuOutput()
+              }
+            </span>
+          </div>
         </section>
         <section>Work in progress...</section>
         <section className="cpu__sources">Sources:&nbsp;

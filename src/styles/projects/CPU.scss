@@ -1,3 +1,9 @@
+.display-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .clock-pulses {
   position: relative;
   height: 42px;
@@ -17,6 +23,23 @@
 
   &__main-content {
     width: calc(70em);
+
+    .start {
+      @extend .display-flex-center;
+      padding: 5px;
+
+      span {
+        margin-right: 10px;
+      }
+
+      .play-button {
+        cursor: pointer;
+        width: 2em;
+        height: 2em; 
+        
+      }
+    }
+
     .clock {
       display: flex;
 
@@ -55,21 +78,42 @@
       }
     }
 
-    .start {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .select-cpu-processing {
+      @extend .display-flex-center;
       padding: 5px;
 
-      span {
-        margin-right: 10px;
-      }
+      div {
+        flex-direction: row;
 
-      .play-button {
-        cursor: pointer;
-        width: 2em;
-        height: 2em; 
-        
+        label {
+          margin-left: 50px;
+
+          span {
+            span {
+              color: #ff000085;
+            }
+          }
+        }
+      }
+    }
+
+    .numbers {
+      @extend .display-flex-center;
+      span {
+        margin: 0px 24px;
+        font-size: 2em;
+      }
+    }
+
+    .characters {
+      @extend .display-flex-center;
+    }
+
+
+    .output-from-cpu {
+      @extend .display-flex-center;
+      span {
+        font-size: 3em;
       }
     }
   }
@@ -86,7 +130,7 @@
     &__main-content {
       width: 90%;
       text-align: center;
-      margin-left: 6%;
+      margin-left: 5%;
       font-size: 1.1em;
       font-weight: 600;
 
@@ -105,6 +149,15 @@
 
         &__analog {
           display: inherit;
+        }
+      }
+
+      .select-cpu-processing {
+        padding: 0px; 
+        div {
+          label {
+            margin: 0px;
+          }
         }
       }
     }
