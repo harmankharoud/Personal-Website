@@ -26,7 +26,7 @@ class App extends React.Component {
               <Route exact path="/projects/centralProcessingUnit" component={CenteralProcessingUnit}></Route>
             </Switch>
           </div>
-          <Footer/>
+          <Footer />
         </Router>
       </div>
     )

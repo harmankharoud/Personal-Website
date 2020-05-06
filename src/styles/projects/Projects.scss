@@ -1,13 +1,7 @@
 .projects {
-  h1 {
-    position: absolute;
-    top: 50px;
+  width: 75%;
+  text-align: center;
 
-    @media only screen and (max-width: 600px) {
-      top: 100px;
-      margin-left: 4%;
-    }
-  }
   &__folders-list {
     .projects-folders{      
       text-decoration: unset;
@@ -15,7 +9,6 @@
     }
     .central-processing-unit {
       top: 17px;
-      left: -130%;
       position: relative;
       display: inline-block;
       vertical-align: top;
@@ -26,25 +19,35 @@
         max-width: 200px;
         filter: contrast(7%);
       }
-
-
-      @media only screen and (max-width: 600px) {
-        left: 0px;
-      }
-      @media only screen and (min-width: 768px) {
-        left: -200px;
-      }
-
-      /* Large devices (laptops/desktops, 992px and up) */
-      @media only screen and (min-width: 992px) {
-        left: -130%;
-      }
-
-      /* Extra large devices (large laptops and desktops, 1200px and up) */
-      @media only screen and (min-width: 1400px) {
-        left: -600px;
-      }
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    h1 {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      top: 0;
+    }
+
+    &__folders-list {
+      text-align: center;
+      .central-processing-unit {
+        left: 0px;
+      }      
+    }
+  }
+  @media only screen and (min-width: 768px) {
+  }
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    
+  }
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1400px) {
+    
   }
 
 }

@@ -6,8 +6,6 @@ import PauseCircleOutlineRoundedIcon from '@material-ui/icons/PauseCircleOutline
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 
-import TextField from '@material-ui/core/TextField';
-
 import { 
     ICPUProps, 
     ICPUState } 
@@ -15,6 +13,7 @@ import {
 
 import Clock from "./Clock";
 import SelectCPUInput from "./SelectCPUInput";
+import IntegerInputFields from "./IntegerInputFields";
 
 import "../../../styles/projects/CPU.scss";
 
@@ -87,31 +86,6 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     return <PlayCircleOutlineRoundedIcon className="play-button" onClick={this.runCPU}></PlayCircleOutlineRoundedIcon>
   }
 
-  private loadNumbersInputs = ():JSX.Element => {
-    const textProps = {
-      maxLength: 1
-    }
-    return (
-      <div className="numbers">
-        <TextField 
-          variant="outlined"
-          className="num-1" 
-          placeholder="X"
-          color="secondary"
-          defaultValue="9"
-          inputProps={textProps}></TextField>
-        <span>+</span>
-        <TextField 
-          variant="outlined"
-          className="num-2" 
-          placeholder="X" 
-          color="secondary"
-          defaultValue="9"
-          inputProps={textProps}></TextField>
-      </div>
-    )
-  }
-
   private loadTextInput = ():JSX.Element => {
     return (
       <div className="characters">
@@ -127,7 +101,7 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
   }
 
   private renderInputTypes = ():JSX.Element => {
-    if (this.state.selectedInputStyle === "numbers") return this.loadNumbersInputs()
+    if (this.state.selectedInputStyle === "numbers") return <IntegerInputFields></IntegerInputFields>
     return this.loadTextInput()
   }
 
@@ -135,12 +109,52 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
     return (
       <div className="cpu">
         <section className="cpu__heading">
-          <h2>CPU</h2>
+          <h2>How CPU works?</h2>
         </section>
         <section className="cpu__main-content">
           <span>
-            Lets make a simple 8 bit cpu based on the manual below:
+            To demonstrate how CPU works, we need couple of things,
+            <ul>
+              <li>
+                <span><b>Input (Keyboard, Mic, Camera, Sensors, Gyroscropes, and more)</b></span>
+                <ul>
+                  <li>
+                    <span>In our case it would from Keyboard</span>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span><b>Process (ALU and Control Unit)</b></span>
+                <ul>
+                  <li>
+                    <span>
+                      We will create ALU and Control Unit. <br/>
+                      We also need some sort of memory device. Store data and fetch data. <br/>
+                      For that we'll create a RAM as in a simple grid of bunch of addressess.
+                    </span>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span><b>Output (Monitors, Speakers, and more)</b></span>
+                <ul>
+                  <li>
+                    <span>In our case, it would be a monitor.</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </span>
+
+          <h2>
+            Input
+          </h2>
+
+          <SelectCPUInput selectedInput={this.updateSelectedCPUInput}></SelectCPUInput>
+
+          {
+            this.renderInputTypes()
+          }   
           <p>
             Every CPU has a clock, lets make a clock first.
           </p>          
@@ -148,15 +162,12 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
             {this.renderPlayButton()}         
             <ArrowBackRoundedIcon className="play-button" onClick={this.goBack}></ArrowBackRoundedIcon>   
             <ArrowForwardRoundedIcon className="play-button" onClick={this.goForward}></ArrowForwardRoundedIcon>
+            <div className="start__seconds">
+              <h2>({this.state.currentTime / 52} seconds)</h2>
+            </div>
           </div>
 
-          <Clock runCPU={(callback) => this.callBack = callback} currentTime={this.updateCurrentTime}></Clock>
-
-          <SelectCPUInput selectedInput={this.updateSelectedCPUInput}></SelectCPUInput>
-
-          {
-            this.renderInputTypes()
-          }          
+          <Clock runCPU={(callback) => this.callBack = callback} currentTime={this.updateCurrentTime}></Clock>       
 
           <div className="output-from-cpu">
             <span>
@@ -167,11 +178,7 @@ export default class CentralProcessingUnit extends React.Component<ICPUProps, IC
           </div>
         </section>
         <section>Work in progress...</section>
-        <section className="cpu__sources">Sources:&nbsp;
-          <a href="http://www.zilog.com/appnotes_download.php?FromPage=DirectLink&dn=UM0077&ft=User%20Manual&f=YUhSMGNEb3ZMM2QzZHk1NmFXeHZaeTVqYjIwdlpHOWpjeTlWVFRBd056Y3VjR1Jt" target="_blank" rel="noopener noreferrer">
-            CPU user manual
-          </a>
-        </section>
+        <section className="cpu__sources">Sources:&nbsp;</section>
       </div>
     )
   }
